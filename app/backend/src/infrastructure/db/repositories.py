@@ -22,12 +22,17 @@ class SqlAlchemyCarRepository(CarRepository):
             is_line=row.is_line,
             line_num=row.line_num,
             updated_at=row.updated_at,
+            fuel_type=row.fuel_type,
         )
 
     async def save(self, car: Car) -> Car:
         if car.id is None:
             row = CarModel(
-                car_num=car.car_num, is_line=car.is_line, line_num=car.line_num, updated_at=car.updated_at
+                car_num=car.car_num,
+                is_line=car.is_line,
+                line_num=car.line_num,
+                updated_at=car.updated_at,
+                fuel_type=car.fuel_type,
             )
             self._session.add(row)
         else:
@@ -35,6 +40,7 @@ class SqlAlchemyCarRepository(CarRepository):
             row.is_line = car.is_line
             row.line_num = car.line_num
             row.updated_at = car.updated_at
+            row.fuel_type = car.fuel_type
         await self._session.flush()
         car.id = row.id
         return car

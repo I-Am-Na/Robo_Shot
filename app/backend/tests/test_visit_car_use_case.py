@@ -7,6 +7,7 @@ from src.application.car.use_cases import VisitCarUseCase
 from src.application.unit_of_work import UnitOfWork
 from src.domain.car.entities import Car
 from src.domain.car.repositories import CarRepository
+from src.domain.car.value_objects import FuelType
 from src.domain.payment.entities import Payment
 from src.domain.payment.repositories import PaymentRepository
 
@@ -85,6 +86,34 @@ async def test_updates_car_and_adds_another_payment_when_car_exists():
     assert len(uow.cars.items) == 1
     assert len(uow.payments.items) == 1
     assert uow.payments.items[0].paid_at == T2
+
+
+@pytest.mark.asyncio
+async def test_new_car_without_fuel_type_is_saved_as_none():
+    uow = FakeUnitOfWork()
+    await VisitCarUseCase(uow, clock=lambda: T1).execute(
+        VisitCarInput(car_num="12가3456", is_line=True, line_num=1)
+    )
+    assert uow.cars.items["12가3456"].fuel_type is None
+
+
+@pytest.mark.asyncio
+async def test_fuel_type_is_saved_and_kept_when_omitted():
+    uow = FakeUnitOfWork()
+    use_case = VisitCarUseCase(uow, clock=lambda: T1)
+    await use_case.execute(VisitCarInput(car_num="12가3456", is_line=True, line_num=1, fuel_type="경유"))
+    assert uow.cars.items["12가3456"].fuel_type is FuelType.DIESEL
+
+    await use_case.execute(VisitCarInput(car_num="12가3456", is_line=True, line_num=2))
+    assert uow.cars.items["12가3456"].fuel_type is FuelType.DIESEL
+
+    await use_case.execute(VisitCarInput(car_num="12가3456", is_line=True, line_num=2, fuel_type="휘발유"))
+    assert uow.cars.items["12가3456"].fuel_type is FuelType.GASOLINE
+
+
+def test_invalid_fuel_type_is_rejected():
+    with pytest.raises(ValueError):
+        VisitCarInput(car_num="12가3456", is_line=True, line_num=1, fuel_type="LPG")
 
 
 @pytest.mark.asyncio

@@ -24,10 +24,21 @@ class VisitCarUseCase:
         try:
             car = await self._uow.cars.find_by_car_num(data.car_num)
             if car is None:
-                car = Car(car_num=data.car_num, is_line=data.is_line, line_num=data.line_num, updated_at=now)
+                car = Car(
+                    car_num=data.car_num,
+                    is_line=data.is_line,
+                    line_num=data.line_num,
+                    updated_at=now,
+                    fuel_type=data.fuel_type,
+                )
                 message = "created"
             else:
-                car.update(is_line=data.is_line, line_num=data.line_num, updated_at=now)
+                car.update(
+                    is_line=data.is_line,
+                    line_num=data.line_num,
+                    updated_at=now,
+                    fuel_type=data.fuel_type,
+                )
                 message = "updated"
             await self._uow.cars.save(car)
             await self._uow.payments.add(Payment(car_num=car.car_num, paid_at=now))
