@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+.pytest_cache/
+config.json
+models/*.pt
+models/*.onnx
+*.mp4
+*.avi
