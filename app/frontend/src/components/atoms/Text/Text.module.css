@@ -1,0 +1,28 @@
+.text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sm {
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  font-size: var(--font-size-lg);
+}
+
+.xl {
+  font-size: var(--font-size-xl);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.bold {
+  font-weight: 700;
+}
