@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     db_name: str = "robo_shot"
     timezone: str = "Asia/Seoul"
 
+    # 주유를 마친(done) 차량이 빠져나가는 동안 다시 감지돼도 이 시간(초) 동안은 대기열에 다시 넣지 않는다.
+    done_redetect_window_seconds: int = 120
+
     @property
     def database_url(self) -> str:
         return (

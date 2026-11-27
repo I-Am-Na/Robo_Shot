@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from src.domain.car.repositories import CarRepository
 from src.domain.payment.repositories import PaymentRepository
+from src.domain.robot_action.repositories import RobotActionRepository
 
 
 class UnitOfWork(ABC):
@@ -9,6 +10,7 @@ class UnitOfWork(ABC):
 
     cars: CarRepository
     payments: PaymentRepository
+    robot_actions: RobotActionRepository
 
     @abstractmethod
     async def commit(self) -> None: ...

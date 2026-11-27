@@ -19,6 +19,32 @@ export interface FuelLineGetResponse extends BaseResponse {
   line: FuelLine | null;
 }
 
+/** GET /car 목록의 한 행 */
+export interface CarItem {
+  car_num: string;
+  is_line: boolean;
+  line_num: LineNum;
+  fuel_type: FuelType | null;
+  /** 'ready'(주유 준비) | 'paid'(결제 완료·주유 중) | 'waiting'(대기) | 'done'(완료) | null */
+  status: string | null;
+  updated_at: string;
+  status_updated_at: string | null;
+}
+
+export interface CarListResponse extends BaseResponse {
+  cars: CarItem[];
+}
+
+export interface CarVisitResponse extends BaseResponse {
+  /** created | updated */
+  message: string;
+  status: string | null;
+}
+
+export interface CompleteFuelingResponse extends BaseResponse {
+  next_car_num: string | null;
+}
+
 export interface CarDetail {
   car_num: string;
   is_line: boolean;
