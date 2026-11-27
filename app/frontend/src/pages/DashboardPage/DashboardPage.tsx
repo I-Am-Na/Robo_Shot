@@ -7,7 +7,8 @@ import styles from './DashboardPage.module.css';
 const POLL_INTERVAL_MS = 3000;
 
 export function DashboardPage() {
-  const { lines, loading, error, fetchLines } = useLineStore();
+  // 조회에 실패해도 에러 문구는 띄우지 않는다. 데이터가 없는 라인은 카드에 "정보 없음"으로 표시된다.
+  const { lines, loading, fetchLines } = useLineStore();
   usePolling(fetchLines, POLL_INTERVAL_MS);
 
   return (
@@ -25,12 +26,6 @@ export function DashboardPage() {
           새로고침
         </Button>
       </div>
-
-      {error && (
-        <p role="alert" className={styles.error}>
-          {error}
-        </p>
-      )}
 
       <div className={styles.grid}>
         {LINE_NUMS.map((n) => (
