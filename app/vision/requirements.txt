@@ -1,0 +1,7 @@
+# 실행용 (모델·카메라)
+ultralytics>=8.3
+opencv-python>=4.9
+easyocr>=1.7
+
+# 테스트용 (위 라이브러리 없이도 판단 로직 테스트는 돌아간다)
+pytest>=8.0
