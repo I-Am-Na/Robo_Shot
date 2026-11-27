@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>robo_shot_bridge</name>
+  <version>0.1.0</version>
+  <description>
+    서버(FastAPI) ↔ 주유 로봇 연결.
+    server_bridge: GET /robot/task polling → Fueling 액션 전송 → 완료 시 PUT /car/{car_num}/complete
+    fueling_action_server: Fueling 액션 서버 (주유 동작 시퀀스, 현재는 시뮬레이션)
+  </description>
+  <maintainer email="dev@robo-shot.local">Robo_Shot</maintainer>
+  <license>Apache-2.0</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>robo_shot_interfaces</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

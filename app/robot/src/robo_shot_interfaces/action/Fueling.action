@@ -1,0 +1,16 @@
+# 주유 1건. 중간 연결 노드(server_bridge)가 보내고, 주유 로봇(fueling_action_server)이 수행한다.
+
+# ---- Goal ----
+string car_num      # 차량번호 (예: 11가1111)
+uint8 line_num      # 주유 라인 (1 또는 2)
+string fuel_type    # 휘발유 | 경유
+uint32 amount       # 결제 금액(원)
+---
+# ---- Result ----
+bool success
+string message
+---
+# ---- Feedback ----
+string step         # 지금 하는 단계 (예: 노즐 삽입)
+uint8 step_index    # 1부터
+uint8 step_count    # 전체 단계 수

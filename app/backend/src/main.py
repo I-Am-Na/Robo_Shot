@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 from src.infrastructure.db.models import Base
 from src.infrastructure.db.session import engine
-from src.presentation.api.v1.routers import car
+from src.presentation.api.v1.routers import car, robot
 
 
 @asynccontextmanager
@@ -29,3 +29,4 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 
 app.include_router(car.router)
+app.include_router(robot.router)
