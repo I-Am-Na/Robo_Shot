@@ -113,6 +113,20 @@
 
 ---
 
+## 개발 환경 구축
+
+`.venv`, `node_modules`, ROS2 빌드 결과물은 git에 올리지 않습니다. clone 후 각자 아래 스크립트로 만듭니다.
+
+```bash
+./setup.sh            # DB(MySQL docker) + 백엔드 .venv + 프론트 npm + 로봇 colcon
+./setup.sh vision     # 비전(YOLO·OCR) — PyTorch 포함이라 필요한 사람만
+./test.sh             # 전체 테스트 (backend / frontend / vision / robot)
+```
+
+- 필요한 것: Python 3.12 + `python3-venv`, Node.js 18 이상, Docker, (로봇) ROS2 Jazzy
+- 다른 컴퓨터에서 복사된 `.venv`가 있으면 `setup.sh`가 지우고 다시 만듭니다.
+- 패키지를 추가하면 `requirements.txt`(백엔드·비전)나 `package.json`(프론트)에 적고 커밋합니다.
+
 ## 미정 사항
 
 - [ ] 파트 간 통신 방식 (ROS2 토픽·서비스 / HTTP / 혼합)
